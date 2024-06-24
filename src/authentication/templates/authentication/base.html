@@ -1,0 +1,18 @@
+{% load static %}
+
+<html>
+	<head>
+		<title>LITRevu</title>
+		<link rel="stylesheet" href="{% static 'listings/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>LITReview</h1>
+            <p>Bienvenu sur le site de LITRevu</p>
+		</header>
+
+		{% block content %}{% endblock content %}
+
+		<footer>Ceci est un footer</footer>
+	</body>
+</html>
