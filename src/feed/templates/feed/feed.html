@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Voici la page principale</h2>
+
+<a href="{% url 'create_ticket' %}"><button>Demander une critique</button></a>
+<a href="{% url 'create_ticket_review' %}"><button>Créer une critique</button></a>
+
+{% endblock content %}

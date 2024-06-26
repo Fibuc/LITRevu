@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Abonnements</h1>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Rechercher</button>
+</form>
+
+{% if search_results is not None %}
+    {% if search_results %}
+        <h2>Résultats</h2>
+        <ul>
+            {% for result in search_results %}
+                <li>{{ result.username }}
+                    {% if user in result.followers.all %}
+                        <form action="{% url 'unfollow' result.id %}" method="post">
+                            {% csrf_token %}
+                                <button type="submit">Ne plus suivre</button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'follow' result.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Suivre</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No results found.</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun résultat pour la recherche "{{search_user}}"</p>
+
+    {% endif %}
+{% endif %}
+
+<h2>Abonnés</h2>
+{% if not followers %}
+<p>Vous n'avez pas d'abonnés</p>
+{% else %}
+    {% for follower in followers %}
+        <p>{{ follower.user }}</p>
+
+    {% endfor %}
+{% endif %}
+
+<h2>Abonnements</h2>
+{% if not followings %}
+<p>Vous ne suivez aucun utilisateur</p>
+{% else %}
+    {% for following in followings %}
+        <p>{{ following.followed_user }}</p>
+        <a href="{% url 'unfollow' following.followed_user.id %}">
+            <button type="submit">Ne plus suivre</button>
+        </a>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}

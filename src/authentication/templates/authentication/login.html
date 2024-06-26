@@ -1,4 +1,4 @@
-{% extends 'authentication/base.html' %}
+{% extends 'base.html' %}
 {% block content %}
     <h2>Connexion</h2>
     {% if form.errors %}
@@ -8,5 +8,8 @@
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Se connecter</button>
+        <a href="{% url 'register' %}">
+            <button type="button">S'inscrire</button>
+        </a>
     </form>
 {% endblock content %}

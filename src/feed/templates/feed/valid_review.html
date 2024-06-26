@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Votre critique a été créée avec succès!</h2>
+<a href=""><button disabled>Voir la critique</button></a>
+<a href="{% url 'create_ticket_review' %}"><button>Créer une nouvelle critique</button></a>
+<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
+
+{% endblock content %}

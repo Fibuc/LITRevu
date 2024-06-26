@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import User
+from .models import User, UserFollows
 
-# Register your models here.
-admin.site.register(User)
+
+class UserFollowsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'followed_user', 'created_at')
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'date_joined')
+
+admin.site.register(User, UserAdmin)
+admin.site.register(UserFollows, UserFollowsAdmin)

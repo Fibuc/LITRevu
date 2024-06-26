@@ -9,5 +9,14 @@ class RegisterForm(UserCreationForm):
         fields = ['username']
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=63, label='Nom d’utilisateur')
-    password = forms.CharField(max_length=63, widget=forms.PasswordInput, label='Mot de passe')
+    username = forms.CharField(
+        max_length=63,
+        widget=forms.TextInput(attrs={'placeholder': "Nom d'utilisateur"}),
+        label='')
+
+    password = forms.CharField(
+        max_length=63,
+        widget=forms.TextInput(
+            attrs={'placeholder': "Nom d'utilisateur",'type': "password"}
+        ),
+        label='')

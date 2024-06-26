@@ -1,0 +1,28 @@
+<!-- {% load static %} -->
+
+<html>
+	<head>
+		<title>LITRevu</title>
+		<!-- <link rel="stylesheet" href="{% static 'listings/styles.css' %}" /> -->
+	</head>
+	<body>
+		<header>
+			{% if user.is_authenticated %}
+    			<p>Vous êtes connecté en tant que {{ user.username }}</p>
+			{% endif %}
+			<h1>LITRevu</h1>
+			{% if user.is_authenticated %}
+			<nav>
+				<a href="{% url 'feed' %}">Flux</a>
+				<a href="{% url 'posts' %}">Posts</a>
+				<a href="{% url 'follows' %}">Abonnements</a>
+				<a href="{% url 'logout' %}">Se déconnecter</a>
+			</nav>
+			{% endif %}
+		</header>
+
+		{% block content %}{% endblock content %}
+
+		<footer>Ceci est un footer</footer>
+	</body>
+</html>

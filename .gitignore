@@ -1,2 +1,6 @@
-__pycache__
-.env
+__pycache__/
+.env/
+.vscode/
+db.sqlite3
+src/db.sqlite3
+*.jpg
