@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.forms import formset_factory
 from authentication.models import UserFollows
+from feed.models import Ticket, Review
+from itertools import chain
 from . import forms
 
 User = get_user_model()
@@ -59,7 +61,14 @@ def feed(request):
 
 @login_required
 def posts(request):
-    return render(request, 'feed/posts.html')
+    user = request.user
+    tickets = Ticket.objects.all()
+    reviews = Review.objects.all()
+    all_posts = sorted(
+        chain(tickets, reviews), key=lambda post: post.time_created,
+        reverse=True
+        )
+    return render(request, 'feed/posts.html', {'user': user, 'all_posts': all_posts})
 
 @login_required
 def create_ticket(request):

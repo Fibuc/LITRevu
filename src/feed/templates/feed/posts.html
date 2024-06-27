@@ -1,8 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Voici les posts</h2>
+<h2>Vos posts</h2>
 
-
+{% for post in all_posts %}
+    {% if post.user == user %}
+        {% if not post.ticket %}
+            <p>Vous avez publié un ticket</p>
+            <h3>{{post.title}}</h3>
+            <p>{{post.description}}</p>
+            <p>{{post.time_created}}</p>
+            {% if post.image %}
+                <img src="{{post.image.url}}" alt="{{post.title}}" title="{{post.title}}">
+            {% endif %}
+        {% else %}
+            <p>Vous avez publié une critique</p>
+            <h3>{{post.headline}}</h3>
+            <p>{{post.ticket}}</p>
+            <p>{{post.ticket.user}}</p>
+            <p>{{post.rating}}</p>
+            <p>{{post.body}}</p>
+            <p>{{post.time_created}}</p>
+            {% if post.ticket.image %}
+                <img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}" title="{{post.ticket.title}}">
+            {% endif %}
+        {% endif %}
+    <a href=""><button disabled>Modifier</button></a>
+    <a href=""><button disabled>Supprimer</button></a>
+    <hr>
+    {% endif %}
+{% endfor %}
 
 {% endblock content %}

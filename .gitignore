@@ -1,6 +1,5 @@
 __pycache__/
 .env/
 .vscode/
+media/
 db.sqlite3
-src/db.sqlite3
-*.jpg
