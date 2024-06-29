@@ -3,32 +3,17 @@
 
 <h2>Vos posts</h2>
 
-{% for post in all_posts %}
-    {% if post.user == user %}
-        {% if not post.ticket %}
-            <p>Vous avez publié un ticket</p>
-            <h3>{{post.title}}</h3>
-            <p>{{post.description}}</p>
-            <p>{{post.time_created}}</p>
-            {% if post.image %}
-                <img src="{{post.image.url}}" alt="{{post.title}}" title="{{post.title}}">
-            {% endif %}
-        {% else %}
-            <p>Vous avez publié une critique</p>
-            <h3>{{post.headline}}</h3>
-            <p>{{post.ticket}}</p>
-            <p>{{post.ticket.user}}</p>
-            <p>{{post.rating}}</p>
-            <p>{{post.body}}</p>
-            <p>{{post.time_created}}</p>
-            {% if post.ticket.image %}
-                <img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}" title="{{post.ticket.title}}">
-            {% endif %}
-        {% endif %}
-    <a href=""><button disabled>Modifier</button></a>
-    <a href=""><button disabled>Supprimer</button></a>
-    <hr>
+{% for post in all_user_posts %}
+    {% if post.content_type == 'TICKET' %}
+        {% include 'feed/ticket_snippet.html' %}
+        <a href="{% url 'modify_ticket' post.id%}"><button>Modifier</button></a>
+        <a href="{% url 'delete_ticket' post.id%}"><button>Supprimer</button></a>
+    {% elif post.content_type == 'REVIEW' %}
+        {% include 'feed/review_snippet.html' %}
+        <a href="{% url 'modify_review' post.id%}"><button>Modifier</button></a>
+        <a href="{% url 'delete_review' post.id%}"><button>Supprimer</button></a>
     {% endif %}
+    <hr>
 {% endfor %}
 
 {% endblock content %}

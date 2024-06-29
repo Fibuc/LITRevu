@@ -1,0 +1,11 @@
+<h3>{{post.headline}}</h3>
+<p>{{post.user}}</p>
+<p>{{post.rating}}</p>
+<p>{{post.body}}</p>
+<p>{{post.time_created}}</p>
+<hr>
+<p>{{post.ticket}}</p>
+<p>{{post.ticket.user}}</p>
+{% if post.ticket.image %}
+    <img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}" title="{{post.ticket.title}}">
+{% endif %}

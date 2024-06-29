@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Oups..</h1>
+<p>Le ticket ou la critique que vous cherchez est introuvable.</p>
+<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
+<a href="{% url 'posts' %}"><button>Voir mes posts</button></a>
+
+{% endblock content %}

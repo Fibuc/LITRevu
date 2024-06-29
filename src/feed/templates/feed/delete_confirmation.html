@@ -2,10 +2,9 @@
 {% block content %}
 
 {% for message in messages %}
-    <h2>{{ message }}</h2>
+    <p>{{ message }}</p>
 {% endfor %}
-<a href=""><button disabled>Voir la critique</button></a>
-<a href="{% url 'create_ticket_review' %}"><button>Créer une nouvelle critique</button></a>
 <a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
+<a href="{% url 'posts' %}"><button>Voir mes posts</button></a>
 
 {% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Confirmation suppression du ticket</h1>
+{% include 'feed/ticket_snippet.html' %}
+<p>Voulez-vous vraiment supprimer ce ticket?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Supprimer</button>
+</form>
+<a href="{% url 'posts' %}"><button>Annuler</button></a>
+
+{% endblock content %}

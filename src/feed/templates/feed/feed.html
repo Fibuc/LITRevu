@@ -2,8 +2,30 @@
 {% block content %}
 
 <h2>Voici la page principale</h2>
-
 <a href="{% url 'create_ticket' %}"><button>Demander une critique</button></a>
 <a href="{% url 'create_ticket_review' %}"><button>Créer une critique</button></a>
+
+{% for post in posts %}
+    {% if post.content_type == 'TICKET' %}
+        {% include 'feed/ticket_snippet.html' %}
+        {% if post.user == request.user %}
+            <a href="{% url 'modify_ticket' post.id %}"><button>Modifier mon ticket</button></a>
+        {% endif %}
+
+        {% if not post.already_response %}
+            <a href="{% url 'create_review' post.id %}"><button>Créer une critique</button></a>
+        {% endif %}
+        
+        <hr><hr><hr>
+    {% elif post.content_type == 'REVIEW' %}
+        {% include 'feed/review_snippet.html' %}
+        {% if post.user == request.user %}
+            <a href="{% url 'modify_review' post.id %}"><button>Modifier ma critique</button></a>
+        {% endif %}
+
+        <hr><hr><hr>
+    {% endif %}
+
+{% endfor %}
 
 {% endblock content %}

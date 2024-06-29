@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Votre ticket a été créé avec succès!</h2>
+{% for message in messages %}
+    <h2>{{ message }}</h2>
+{% endfor %}
 <a href=""><button disabled>Voir le ticket</button></a>
 <a href="{% url 'create_ticket' %}"><button>Créer un nouveau ticket</button></a>
 <a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>

@@ -33,9 +33,9 @@ class TicketForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = models.Review
-        fields = ['rating', 'headline', 'body']
+        fields = ['headline', 'rating', 'body']
         widgets = {
-            'rating': forms.NumberInput(attrs={'placeholder': 'Note de 1 à 5'}),
+            'rating': forms.RadioSelect(),
             'headline': forms.TextInput(attrs={'placeholder': 'Titre de la critique'}),
             'body': forms.Textarea(attrs={'placeholder': 'Critique'})
         }

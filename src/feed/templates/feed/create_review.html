@@ -2,10 +2,16 @@
 {% block content %}
 
 <h1>Créer une critique</h1>
+{% if not ticket_form %}
+<p>Vous êtes en train de répondre au ticket:</p>
+{% include 'feed/ticket_snippet.html' %}
+{% endif %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <h2>Ticket</h2>
-    {{ ticket_form.as_p }}
+    {% if ticket_form %}
+        <h2>Ticket</h2>
+        {{ ticket_form.as_p }}
+    {% endif %}
     <h2>Critique</h2>
     {{ review_form.as_p }}
     <button type="submit">Envoyer</button>
