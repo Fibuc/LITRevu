@@ -1,7 +1,13 @@
-<h2>{{ post.title }}</h2>
-<p>{{ post.user }}</p>
-<p>{{ post.time_created }}</p>
-<p>{{ post.description }}</p>
+{% if post.user == request.user %}
+<p class="ticket-user">Vous avez publié un ticket</p>
+{% else %}
+<p class="ticket-user">{{ post.user }} a demandé une critique</p>
+{% endif %}
+
+<p class="ticket-date">{{ post.time_created }}</p>
+<hr />
+<h3 class="ticket-title">{{ post.title }}</h3>
+<p class="ticket-description">{{ post.description }}</p>
 {% if post.image %}
-    <img src="{{ post.image.url }}" alt="{{post.title}}" title="{{post.title}}">
+<img src="{{ post.image.url }}" alt="{{post.title}}" title="{{post.title}}" class="ticket-image" />
 {% endif %}

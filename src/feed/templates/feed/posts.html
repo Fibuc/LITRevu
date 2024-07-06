@@ -1,19 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container container-column">
+	<h2>Vos posts</h2>
+	{% if not all_user_posts %}
+	<div class="ticket background-light border-box">
+		<p class="no-post">
+			Vous n'avez pas encore créé de post. Créez dès maintenant votre
+			<a href="{% url 'create_ticket' %}">demande de critique</a> ou
+			<a href="{% url 'create_ticket_review' %}">votre propre critique</a> !
+		</p>
+	</div>
 
-<h2>Vos posts</h2>
-
-{% for post in all_user_posts %}
+	{% endif %}
+    {% for post in all_user_posts %}
     {% if post.content_type == 'TICKET' %}
-        {% include 'feed/ticket_snippet.html' %}
-        <a href="{% url 'modify_ticket' post.id%}"><button>Modifier</button></a>
-        <a href="{% url 'delete_ticket' post.id%}"><button>Supprimer</button></a>
-    {% elif post.content_type == 'REVIEW' %}
-        {% include 'feed/review_snippet.html' %}
-        <a href="{% url 'modify_review' post.id%}"><button>Modifier</button></a>
-        <a href="{% url 'delete_review' post.id%}"><button>Supprimer</button></a>
-    {% endif %}
-    <hr>
-{% endfor %}
-
+	<div class="ticket background-light border-box">
+		{% include 'feed/ticket_snippet.html' %}
+		<div class="container ticket-buttons">
+			<a href="{% url 'modify_ticket' post.id%}"><button class="modify-button">Modifier</button></a>
+			<a href="{% url 'delete_ticket' post.id%}"><button class="delete-button">Supprimer</button></a>
+		</div>
+	</div>
+	{% elif post.content_type == 'REVIEW' %}
+	<div class="review background-light border-box">
+		{% include 'feed/review_snippet.html' %}
+		<div class="container review-buttons">
+			<a href="{% url 'modify_review' post.id%}"><button class="modify-button">Modifier</button></a>
+			<a href="{% url 'delete_review' post.id%}"><button class="delete-button">Supprimer</button></a>
+		</div>
+	</div>
+	{% endif %}
+    {% endfor %}
+</div>
 {% endblock content %}

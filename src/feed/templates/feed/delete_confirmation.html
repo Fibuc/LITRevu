@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-
-{% for message in messages %}
-    <p>{{ message }}</p>
-{% endfor %}
-<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
-<a href="{% url 'posts' %}"><button>Voir mes posts</button></a>
-
+<div class="container container-column background-light border-box modify-ticket">
+	{% for message in messages %}
+	<p>{{ message }}</p>
+	{% endfor %}
+	<div class="container container-buttons">
+		<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
+		<a href="{% url 'posts' %}"><button>Voir mes posts</button></a>
+	</div>
+</div>
 {% endblock content %}

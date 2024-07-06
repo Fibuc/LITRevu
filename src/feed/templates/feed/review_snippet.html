@@ -1,11 +1,43 @@
-<h3>{{post.headline}}</h3>
-<p>{{post.user}}</p>
-<p>{{post.rating}}</p>
-<p>{{post.body}}</p>
-<p>{{post.time_created}}</p>
-<hr>
-<p>{{post.ticket}}</p>
-<p>{{post.ticket.user}}</p>
-{% if post.ticket.image %}
-    <img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}" title="{{post.ticket.title}}">
+{% load custom_tags %}
+{% if post.user == request.user %}
+<p class="review-user">Vous avez publié une critique</p>
+{% else %}
+<p class="review-user">{{ post.user }} a publié une critique</p>
+{% endif %}
+
+<p class="review-date">{{post.time_created}}</p>
+<hr />
+<h3 class="review-title">{{post.headline}}</h3>
+{% for i in 5|get_range %}
+{% if i < post.rating %}
+<span class="star star-filled">&#9733;</span>
+{% else %}
+<span class="star">&#9734;</span>
+{% endif %}
+{% endfor %}
+
+<p class="review-description">{{post.body}}</p>
+<div class="ticket background-medium-light border-box">
+	{% if post.ticket.user == request.user %}
+	<p class="ticket-user">Votre ticket</p>
+	{% else %}
+	<p class="ticket-user">Ticket publié par {{ post.ticket.user }}</p>
+	{% endif %}
+
+	<p class="ticket-date">{{post.ticket.time_created}}</p>
+	<hr />
+	<h4 class="ticket-title">{{post.ticket}}</h4>
+	<p class="ticket-description">{{post.ticket.description}}</p>
+	{% if post.ticket.image %}
+	<img
+		src="{{post.ticket.image.url}}"
+		alt="{{post.ticket.title}}"
+		title="{{post.ticket.title}}"
+		class="ticket-image"
+	/>
+	{% endif %}
+</div>
+
+{% if post.user == request.user %}
+<hr />
 {% endif %}

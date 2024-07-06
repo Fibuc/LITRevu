@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Modifier une critique</h1>
-{% include 'feed/ticket_snippet.html' %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Modifier</button>
-</form>
-<a href="{% url 'posts' %}">
-    <button>Annuler</button>
-</a>
-
+<div class="container container-column create-review background-light border-box">
+	<h1>Modifier une critique</h1>
+	<div class="review-ticket background-medium-light border-box">
+        {% include 'feed/ticket_snippet.html' %}
+    </div>
+	<div class="review">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+            {{ form.as_p }}
+			<div class="container container-buttons">
+				<button type="submit">Modifier</button>
+				<button type="button" onclick="history.back();" class="cancel-button">Annuler</button>
+			</div>
+		</form>
+	</div>
+</div>
 {% endblock content %}

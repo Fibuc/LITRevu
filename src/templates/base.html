@@ -1,28 +1,50 @@
 {% load static %}
-
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>LITRevu</title>
-		<link rel="stylesheet" href="{% static 'LITRevu/styles.css' %}" />
+		{% include 'statics_imports.html' %}
 	</head>
 	<body>
-		<header>
+		<header class="container">
 			{% if user.is_authenticated %}
-    			<p>Vous êtes connecté en tant que {{ user.username }}</p>
+			<p class="user-connected">Vous êtes connecté en tant que <span class="user-connected-name">{{ user.username }}</span></p>
 			{% endif %}
-			<h1>LITRevu</h1>
+			<div class="logo-title">
+				<img src="{% static 'img/logo.svg' %}" alt="Logo LITRevu" title="Logo LITRevu" class="logo">
+				<h1 class="title">LITRevu</h1>
+			</div>
 			{% if user.is_authenticated %}
-			<nav>
+			<nav class="container background-light">
 				<a href="{% url 'feed' %}">Flux</a>
 				<a href="{% url 'posts' %}">Posts</a>
 				<a href="{% url 'follows' %}">Abonnements</a>
-				<a href="{% url 'logout' %}">Se déconnecter</a>
+				<a href="{% url 'logout' %}">Déconnexion</a>
 			</nav>
+			<script>
+				
+				// Obtenir l'URL actuelle
+				var currentUrl = window.location.pathname;
+			
+				// Sélectionner tous les éléments de la barre de navigation
+				var navItems = document.querySelectorAll('header nav a');
+				// Boucler à travers chaque élément de navigation
+				navItems.forEach(function(navItem) {
+					// Vérifier si l'URL de l'élément correspond à l'URL actuelle
+					console.log(navItem.getAttribute('href'))
+					console.log(currentUrl)
+					if (navItem.getAttribute('href') === currentUrl) {
+						// Ajouter la classe 'active' au parent de l'élément
+						navItem.classList.add('active');
+					}
+				
+				});
+			</script>
 			{% endif %}
 		</header>
 
 		{% block content %}{% endblock content %}
-
-		<footer>Ceci est un footer</footer>
 	</body>
 </html>

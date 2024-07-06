@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Confirmation suppression de la critique</h1>
-{% include 'feed/review_snippet.html' %}
-<p>Voulez-vous vraiment supprimer cette critique?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Supprimer</button>
-</form>
-<a href="{% url 'posts' %}"><button>Annuler</button></a>
-
+<div class="container">
+	<div class="review background-light border-box">
+		<h2>Confirmation suppression de la critique</h2>
+		{% include 'feed/review_snippet.html' %}
+		<p class="delete-ask-message">Voulez-vous vraiment supprimer cette critique?</p>
+		<form method="post">
+			{% csrf_token %}
+			<div class="container container-buttons">
+				<button type="submit">Supprimer</button>
+				<button type="button" onclick="history.back();" class="cancel-button">Annuler</button>
+			</div>
+		</form>
+	</div>
+</div>
 {% endblock content %}

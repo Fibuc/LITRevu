@@ -1,0 +1,78 @@
+.search-user,
+.followers,
+.followings {
+	width: 50%;
+	text-align: center;
+	margin: 10px 0;
+	padding: 10px 0;
+}
+
+.search-user div {
+	padding: 10px 0;
+}
+
+.follow-title {
+	text-decoration: underline;
+}
+
+.following-user,
+.follower-user,
+.user-searched {
+	padding: 2px 0;
+	margin: 10px 0;
+}
+
+.no-marker {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.following-user,
+.user-searched {
+	border-radius: 15px 0 0 15px;
+	width: 30%;
+}
+
+.follower-user {
+	border-radius: 15px;
+	width: 415px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.followings .container:last-child,
+.followers div:last-child {
+	margin-bottom: 50px;
+}
+
+.search-user li {
+	width: 100%;
+	justify-content: center;
+}
+
+.following-button {
+	min-width: 130px;
+	border-left: 1px solid black;
+	border-radius: 0 15px 15px 0;
+	padding: 2px 8px;
+	font-size: 1rem;
+	font-weight: inherit;
+	font-style: italic;
+}
+
+.following-button:hover {
+	font-weight: 600;
+	opacity: 100%;
+}
+
+.followings .container {
+	justify-content: center;
+}
+
+.following-button,
+.following-user,
+.follower-user,
+.user-searched {
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}

@@ -1,60 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container container-column">
+	<div class="search-user background-light border-box">
+		<h2 class="follow-title">Rechercher un utilisateur</h2>
+		<form method="get">
+			{{ form.as_p }}
+			<button type="submit">Rechercher</button>
+		</form>
 
-<h1>Abonnements</h1>
-<form method="get">
-    {{ form.as_p }}
-    <button type="submit">Rechercher</button>
-</form>
+		{% if search_results is not None %}
+		{% if search_results %}
+		<div>
+			<h3>Résultats</h3>
+			<ul class="container container-column no-marker">
+				{% for result in search_results %}
+				<li class="container">
+					<p class="user-searched background-medium-light">{{ result.username }}</p>
+					{% if user in result.followers.all %}
+					<form action="{% url 'unfollow' result.id %}" method="post">
+						{% csrf_token %}
+						<button type="submit" class="following-button">Ne plus suivre</button>
+					</form>
+					{% else %}
+					<form action="{% url 'follow' result.id %}" method="post">
+						{% csrf_token %}
+						<button type="submit" class="following-button">Suivre</button>
+					</form>
+					{% endif %}
+				</li>
+				{% empty %}
+				<li>No results found.</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% else %}
+		<p>Aucun résultat pour la recherche "{{search_user}}"</p>
 
-{% if search_results is not None %}
-    {% if search_results %}
-        <h2>Résultats</h2>
-        <ul>
-            {% for result in search_results %}
-                <li>{{ result.username }}
-                    {% if user in result.followers.all %}
-                        <form action="{% url 'unfollow' result.id %}" method="post">
-                            {% csrf_token %}
-                                <button type="submit">Ne plus suivre</button>
-                        </form>
-                    {% else %}
-                        <form action="{% url 'follow' result.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Suivre</button>
-                        </form>
-                    {% endif %}
-                </li>
-            {% empty %}
-                <li>No results found.</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucun résultat pour la recherche "{{search_user}}"</p>
-
-    {% endif %}
-{% endif %}
-
-<h2>Abonnés</h2>
-{% if not followers %}
-<p>Vous n'avez pas d'abonnés</p>
-{% else %}
-    {% for follower in followers %}
-        <p>{{ follower.user }}</p>
-
-    {% endfor %}
-{% endif %}
-
-<h2>Abonnements</h2>
-{% if not followings %}
-<p>Vous ne suivez aucun utilisateur</p>
-{% else %}
-    {% for following in followings %}
-        <p>{{ following.followed_user }}</p>
-        <a href="{% url 'unfollow' following.followed_user.id %}">
-            <button type="submit">Ne plus suivre</button>
-        </a>
-    {% endfor %}
-{% endif %}
-
+		{% endif %}
+		{% endif %}
+	</div>
+	<div class="followers background-light border-box">
+		<h2 class="follow-title">Abonnés</h2>
+		{% if not followers %}
+		<p>Vous n'avez pas d'abonnés</p>
+		{% else %}
+		{% for follower in followers %}
+		<div class="container">
+			<p class="follower-user background-medium-light">{{ follower.user }}</p>
+		</div>
+		{% endfor %}
+		{% endif %}
+	</div>
+	<div class="followings background-light border-box">
+		<h2 class="follow-title">Abonnements</h2>
+		{% if not followings %}
+		<p>Vous ne suivez aucun utilisateur</p>
+		{% else %}
+		{% for following in followings %}
+		<div class="container">
+			<p class="following-user background-medium-light">{{ following.followed_user }}</p>
+			<a href="{% url 'unfollow' following.followed_user.id %}">
+				<button type="submit" class="following-button">Ne plus suivre</button>
+			</a>
+		</div>
+		{% endfor %}
+		{% endif %}
+	</div>
+</div>
 {% endblock content %}

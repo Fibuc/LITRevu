@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-
-{% for message in messages %}
-    <h2>{{ message }}</h2>
-{% endfor %}
-<a href=""><button disabled>Voir le ticket</button></a>
-<a href="{% url 'create_ticket' %}"><button>Créer un nouveau ticket</button></a>
-<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
-
+<div class="container container-column success-operation background-light border-box">
+	{% for message in messages %}
+	<h2>{{ message }}</h2>
+	{% endfor %}
+	<div class="container container-buttons">
+		<a href="{% url 'create_ticket' %}"><button>Créer un nouveau ticket</button></a>
+		<a href="{% url 'feed' %}"><button>Voir le fil d'actualité</button></a>
+	</div>
+</div>
 {% endblock content %}

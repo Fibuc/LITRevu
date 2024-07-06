@@ -21,8 +21,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateField(auto_now_add=True)),
-                ('followed_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follower_relations', to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur suivi')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='following_relations', to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur')),
+                ('followed_user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, related_name='follower_relations',
+                    to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur suivi'
+                    )),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, related_name='following_relations',
+                    to=settings.AUTH_USER_MODEL, verbose_name='Utilisateur'
+                    )),
             ],
             options={
                 'verbose_name_plural': 'Follows',
@@ -32,6 +38,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='followings',
-            field=models.ManyToManyField(blank=True, related_name='followers', through='authentication.UserFollows', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(
+                blank=True, related_name='followers',
+                through='authentication.UserFollows', to=settings.AUTH_USER_MODEL
+                ),
         ),
     ]

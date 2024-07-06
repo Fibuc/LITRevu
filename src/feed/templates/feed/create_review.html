@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Créer une critique</h1>
-{% if not ticket_form %}
-<p>Vous êtes en train de répondre au ticket:</p>
-{% include 'feed/ticket_snippet.html' %}
-{% endif %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if ticket_form %}
-        <h2>Ticket</h2>
-        {{ ticket_form.as_p }}
-    {% endif %}
-    <h2>Critique</h2>
-    {{ review_form.as_p }}
-    <button type="submit">Envoyer</button>
-</form>
-
+<div class="container container-column create-review background-light border-box">
+	<h1>Créer une critique</h1>
+	<form method="post" enctype="multipart/form-data">
+		{% if not ticket_form %}
+		<p class="message-response">Vous êtes en train de répondre au ticket:</p>
+		{% endif %}
+		<div class="review-ticket background-medium-light border-box">
+			{% csrf_token %}
+            {% if not ticket_form %}
+            {% include 'feed/ticket_snippet.html' %}
+            {% else %}
+			<div class="ticket-form">
+				<h2>Ticket</h2>
+				{{ ticket_form.as_p }}
+			</div>
+			{% endif %}
+		</div>
+		<div class="review">
+			<h2>Critique</h2>
+			{{ review_form.as_p }}
+			<div class="container container-buttons">
+				<button type="submit">Envoyer</button>
+				<button onclick="history.back();" class="cancel-button">Annuler</button>
+			</div>
+		</div>
+	</form>
+</div>
 {% endblock content %}

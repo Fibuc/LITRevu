@@ -4,6 +4,7 @@ from feed.models import Review, Ticket
 
 
 class User(AbstractUser):
+    """Modèle d'utilisateur personnalisé pour l'application."""
     followings = models.ManyToManyField(
         'self',
         through='UserFollows',
@@ -13,9 +14,15 @@ class User(AbstractUser):
         )
 
     def __str__(self):
+        """Retourne la représentation de l'utilisateur en chaînes de caractères."""
         return self.username
-    
+
     def get_users_viewable_reviews(self):
+        """Récupère et retourne toutes les critiques qui peuvent être visible pour l'utilisateur.
+
+        Returns:
+            QuerySet: Un queryset contenant toutes les critiques visibles pour l'utilisateur.
+        """
         all_reviews = Review.objects.filter(user__in=(self.followings.all())) | self.review_set.all()
         tickets = self.ticket_set.all()
         for ticket in tickets:
@@ -26,12 +33,22 @@ class User(AbstractUser):
         return all_reviews
 
     def get_users_viewable_tickets(self):
+        """Récupère et retourne tous les tickets qui peuvent être visible pour l'utilisateur.
+
+        Returns:
+            QuerySet: Un queryset contenant tous les tickets visibles pour l'utilisateur.
+        """
         return Ticket.objects.filter(user__in=self.followings.all()) | self.ticket_set.all()
-    
+
 
 class UserFollows(models.Model):
-    user = models.ForeignKey(User, related_name='following_relations', on_delete=models.CASCADE, verbose_name='Utilisateur')
-    followed_user  = models.ForeignKey(User, related_name='follower_relations', on_delete=models.CASCADE, verbose_name='Utilisateur suivi')
+    """Modèle des relations des suivis d'utilisateur."""
+    user = models.ForeignKey(
+        User, related_name='following_relations', on_delete=models.CASCADE, verbose_name='Utilisateur'
+        )
+    followed_user = models.ForeignKey(
+        User, related_name='follower_relations', on_delete=models.CASCADE, verbose_name='Utilisateur suivi'
+        )
     created_at = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -39,5 +56,5 @@ class UserFollows(models.Model):
         unique_together = ('user', 'followed_user')
 
     def __str__(self):
+        """Retourne la représentation du suivi utilisateur en chaînes de caractères."""
         return f"{self.user} suit {self.followed_user}"
-

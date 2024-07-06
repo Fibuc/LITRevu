@@ -1,31 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h2>Voici la page principale</h2>
-<a href="{% url 'create_ticket' %}"><button>Demander une critique</button></a>
-<a href="{% url 'create_ticket_review' %}"><button>Créer une critique</button></a>
-
-{% for post in posts %}
+<div class="container container-column">
+	<h2>Flux</h2>
+	<div class="container feed-buttons">
+		<a href="{% url 'create_ticket' %}"><button>Demander une critique</button></a>
+		<a href="{% url 'create_ticket_review' %}"><button>Créer une critique</button></a>
+	</div>
+	{% if not posts %}
+	<div class="ticket background-light border-box">
+		<p class="no-post">
+			Il n'y a aucun post à afficher pour le moment.
+			<a href="{% url 'follows' %}">Suivez des utilisateurs</a> pour découvrir leurs contenus !
+		</p>
+	</div>
+	{% endif %}
+    {% for post in posts %}
     {% if post.content_type == 'TICKET' %}
-        {% include 'feed/ticket_snippet.html' %}
+	<div class="ticket background-light border-box">
+		{% include 'feed/ticket_snippet.html' %}
         {% if post.user == request.user %}
-            <a href="{% url 'modify_ticket' post.id %}"><button>Modifier mon ticket</button></a>
-        {% endif %}
+		<div class="container container-buttons">
+			<a href="{% url 'modify_ticket' post.id %}"><button class="modify-button">Modifier mon ticket</button></a>
+		</div>
 
-        {% if not post.already_response %}
-            <a href="{% url 'create_review' post.id %}"><button>Créer une critique</button></a>
-        {% endif %}
-        
-        <hr><hr><hr>
-    {% elif post.content_type == 'REVIEW' %}
-        {% include 'feed/review_snippet.html' %}
-        {% if post.user == request.user %}
-            <a href="{% url 'modify_review' post.id %}"><button>Modifier ma critique</button></a>
-        {% endif %}
+		{% elif not post.already_response %}
+		<hr />
+		<div class="container container-buttons">
+			<a href="{% url 'create_review' post.id %}"><button>Créer une critique</button></a>
+		</div>
+		{% else %}
+		<p class="already_response-message">Vous avez déjà publié une critique pour ce ticket.</p>
+		{% endif %}
+	</div>
 
-        <hr><hr><hr>
-    {% endif %}
-
-{% endfor %}
-
+	{% elif post.content_type == 'REVIEW' %}
+	<div class="review background-light border-box">
+		{% include 'feed/review_snippet.html' %} {% if post.user == request.user %}
+		<div class="container container-buttons">
+			<a href="{% url 'modify_review' post.id %}"><button class="modify-button">Modifier ma critique</button></a>
+		</div>
+		{% endif %}
+	</div>
+	{% endif %}
+    {% endfor %}
+</div>
 {% endblock content %}

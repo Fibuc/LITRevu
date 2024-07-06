@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Connexion</h2>
-    {% if form.errors %}
-        {{ form.errors }}
-    {% endif %}
-    <form method="post">
-        {{ form.as_p }}
+<div class="container container-menu">
+	<div class="register-menu background-light border-box">
+		<h2>Inscrivez-vous</h2>
+		<a href="{% url 'register' %}">
+			<button type="button">S'inscrire</button>
+		</a>
+	</div>
+	<form method="post" class="connection-menu background-light border-box">
+		<h2>Connectez-vous</h2>
+		{{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Se connecter</button>
-        <a href="{% url 'register' %}">
-            <button type="button">S'inscrire</button>
-        </a>
-    </form>
+        {% for message in messages %}
+		<p class="error-message">{{message}}</p>
+		{% endfor %}
+		<button type="submit">Se connecter</button>
+	</form>
+</div>
 {% endblock content %}

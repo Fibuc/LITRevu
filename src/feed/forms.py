@@ -4,18 +4,22 @@ from . import models
 
 User = get_user_model()
 
+
 class UserSearchForm(forms.Form):
+    """Formulaire de recherche des utilisateurs"""
     placeholder = forms.TextInput(attrs={'placeholder': 'Rechercher un utilisateur'})
     search_user = forms.CharField(widget=placeholder, max_length=63, label='', required=False)
 
 
 class FollowForm(forms.ModelForm):
+    """Formulaire de suivi des utilisateurs."""
     class Meta:
         model = User
         fields = ['followings']
 
 
 class TicketForm(forms.ModelForm):
+    """Formulaire de création de ticket."""
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']
@@ -31,6 +35,7 @@ class TicketForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+    """Formulaire de création de critique."""
     class Meta:
         model = models.Review
         fields = ['headline', 'rating', 'body']

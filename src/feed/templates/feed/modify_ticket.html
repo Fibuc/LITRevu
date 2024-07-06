@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>Modifier un ticket</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Modifier</button>
-</form>
-<a href="{% url 'posts' %}">
-    <button>Annuler</button>
-</a>
-
+<div class="container container-column background-light border-box modify-ticket">
+	<h1>Modifier un ticket</h1>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="container container-buttons">
+			<button type="submit">Modifier</button>
+			<button type="button" onclick="history.back();" class="cancel-button">Annuler</button>
+		</div>
+	</form>
+</div>
 {% endblock content %}

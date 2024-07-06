@@ -1,0 +1,23 @@
+.error-message {
+	color: red;
+}
+
+.container-menu {
+	margin: 5% 10%;
+	justify-content: space-around;
+}
+
+.connection-menu,
+.register-menu {
+	width: 40%;
+	text-align: center;
+}
+
+.connection-menu input {
+	text-align: inherit;
+}
+
+input {
+	width: 50%;
+	padding: 5px 2px;
+}
