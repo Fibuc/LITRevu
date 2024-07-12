@@ -8,18 +8,23 @@ Cette application est le MVP d'un projet de site web visant à échanger des cri
 
 Pour cloner le dépôt, vous devrez ouvrir le terminal et effectuer la commande suivante dans le dossier de votre choix :
 ```bash
-    git clone https://github.com/Fibuc/LITRevu.git
+git clone https://github.com/Fibuc/LITRevu.git
+```
+Ensuite déplacez-vous dans le dossier créé par le clonage nommé `LITRevu` avec la commande suivante :
+
+```bash
+cd LITRevu
 ```
 
 ### Créez un environnement virtuel
 
-Ensuite, vous aurez besoin de créer un environnement virtuel que vous devrez nommer `env` ou `.env` afin d'éviter son push dans le repository. Si toutefois, vous voulez utiliser un autre nom d'environnement, ajoutez-le au fichier `.gitignore`.
+Ensuite, vous aurez besoin de créer un environnement virtuel que vous devrez nommer `env` afin d'éviter son push dans le repository. Si toutefois, vous voulez utiliser un autre nom d'environnement, ajoutez-le au fichier `.gitignore`.
 
 
 Ouvrez le terminal et rendez-vous dans le dossier du dépôt local du projet, puis tapez la commande suivante :
 
 ```bash
-    python -m venv nom_de_l_environnement
+python -m venv nom_de_l_environnement
 ```
 
 ### Activez votre environnement virtuel
@@ -28,11 +33,18 @@ Pour activer votre environnement virtuel, la méthode est différente selon votr
 
 #### Linux & MacOS :
 ```bash
-    source chemin_de_votre_env/bin/activate
+source chemin_de_votre_env/bin/activate
 ```
 #### Windows : 
+
+##### CMD :
 ```bash
-    chemin_de_votre_env\Scripts\activate.bat
+chemin_de_votre_env\Scripts\activate.bat
+```
+
+##### PowerShell :
+```bash
+chemin_de_votre_env\Scripts\activate.ps1
 ```
 
 Veillez également à bien vous situer sur la branche "main" lors de l'exécution de **main.py**.
@@ -42,7 +54,7 @@ Veillez également à bien vous situer sur la branche "main" lors de l'exécutio
 Lorsque vous aurez activé votre environnement virtuel, vous aurez également besoin d'installer les packages essentiels pour le lancement disponibles dans le requirements.txt.
 
 ```bash
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Lancer le serveur
@@ -52,7 +64,7 @@ Maintenant que les packages ont été installés, on va pouvoir lancer le serveu
 On va se rendre dans le dossier `src` et lancer la commande suivante :
 
 ```bash
-    python manage.py runserver
+python manage.py runserver
 ```
 Et voilà, maintenant vous pouvez accéder à l'application via le lien : [http://localhost:8000/](http://localhost:8000/).
 
@@ -115,7 +127,7 @@ L'application a été contrôlée par Flake8. Vous trouverez le rapport en ouvra
 Pour générer un nouveau rapport flake8 de l'application en format HTML, vous devrez ouvrir votre terminal et vous rendre à la racine de l'application puis utiliser la fonction suivante:
 
 ```bash
-    flake8 --format=html --htmldir=flake8_rapport
+flake8 --format=html --htmldir=flake8_rapport
 ```
 
 Ce nouveau rapport sera généré dans le dossier "flake8_rapport".
